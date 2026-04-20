@@ -1,0 +1,137 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #1b4379;
+    font-family: Arial, sans-serif;
+}
+
+#content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+/* Venstre side */
+
+#quiz-area {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    min-width: 0;
+}
+
+#image-box {
+    flex: 1;
+    background: #e9eef5;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+#quiz-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+#button-area {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+#button-area button {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    background: #1b4379;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#button-area button:hover {
+    background: #14345d;
+}
+
+#feedback {
+    min-height: 2rem;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #1b4379;
+}
+
+/* Højre side */
+
+#info-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f7f9fc;
+    border-radius: 16px;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+#info-area h1 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #1b4379;
+}
+
+#info-area h2 {
+    margin-top: 0;
+    color: #1b4379;
+}
+
+#info-area p,
+#info-area li {
+    line-height: 1.5;
+    color: #222;
+}
+
+.info-box {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+}
+
+.info-box ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #1b4379;
+    padding: 1rem 2rem;
+}
+
+footer img {
+    height: 40px;
+    margin-left: auto;
+}
