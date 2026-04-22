@@ -2,18 +2,21 @@
 <html lang="da">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Folketidende AI-quiz</title>
-        <link rel="icon" type="image/png" href="https://github.com/eccft/folketidende-ai-quiz/blob/main/folketidende-logo_favicon_36.png?raw=true">
+        <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/eccft/folketidende-ai-quiz/main/Billleder%20og%20grafik/folketidende-logo_favicon_36.png">
         <link rel="stylesheet" href="styles.css">
     </head>
     
     <body>
         <div id="content">
             <div id="quiz-area">
+                <div id="quiz-status">Billede 1 af 1</div>
+
                 <div id="image-box">
                     <img
                         id="quiz-image"
-                        src="images/placeholder.jpg"
+                        src=""
                         alt="Quizbillede"
                     >
                 </div>
@@ -23,8 +26,11 @@
                     <button id="real-button">Real</button>
                 </div>
 
-                <div id="feedback">
-                    
+                <div id="feedback"></div>
+
+                <div id="next-area">
+                    <div id="mobile-hint">På mobil: Scroll ned for forklaring ↓</div>
+                    <button id="next-button">Næste</button>
                 </div>
             </div>
 
@@ -35,29 +41,29 @@
                     Kig på billedet og gæt, om det er ægte eller AI-genereret.
                 </p>
 
-                <div class="info-box">
-                    <h2>Det kan du kigge efter</h2>
-                    <ul>
-                        <li><b>Hænder og fingre</b> - er der for mange eller for få?</li>
-                        <li><b>Øjne, tænder og ansigter</b> - ser de menneskelige ud?</li>
-                        <li><b>Tekst på skilte, tøj og genstande</b> - er teksten forvrænget, er ordene virkelige?</li>
-                        <li><b>Skygger og lysretning</b> - stemmer det med, hvordan du føler, det bør se ud?</li>
-                        <li><b>Mønstre og detaljer i baggrunden</b></li>
-                    </ul>
+                <div class="info-box" id="description-box">
+                    <h2>Om billedet</h2>
+                    <p id="description-result"></p>
+                    <p id="image-description"></p>
+                    <button id="back-to-image-button">Tilbage til billedet ↑</button>
                 </div>
 
                 <div class="info-box">
-                    <h2>Om billedet</h2>
-                    <p id="image-description">
-                        Her kan der senere stå en forklaring på, hvad der afslører billedet.
-                    </p>
+                    <h2>Det kan du kigge efter</h2>
+                    <ul>
+                        <li><b>Hænder og fingre</b> – er der for mange eller for få?</li>
+                        <li><b>Øjne, tænder og ansigter</b> – ser de menneskelige ud?</li>
+                        <li><b>Tekst på skilte, tøj og genstande</b> – er teksten forvrænget, og er ordene virkelige?</li>
+                        <li><b>Skygger og lysretning</b> – hænger lyset logisk sammen?</li>
+                        <li><b>Mønstre og detaljer i baggrunden</b> – gentager ting sig mærkeligt?</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <footer>
-            <p style="color: white;"><i>Denne side er (ironisk nok) lavet med brug af AI-værktøjer.</i></p>
-            <img src="https://github.com/eccft/folketidende-ai-quiz/blob/main/Billleder%20og%20grafik/folketidende-logo_white.png?raw=true" alt="Folketidende logo">
+            <p id="ai-deklarering">Denne side er (ironisk nok) lavet med hjælp fra AI-værktøjer.</p>
+            <img src="https://raw.githubusercontent.com/eccft/folketidende-ai-quiz/main/Billleder%20og%20grafik/folketidende-logo_white.png" alt="Folketidende logo">
         </footer>
         
         <script src="scripts.js"></script>
