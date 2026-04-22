@@ -1,12 +1,3 @@
-function preloadImages() {
-    quizItems.forEach(item => {
-        const img = new Image();
-        img.src = item.image;
-    });
-}
-
-preloadImages();
-
 const quizItems = [
     {
         alt: "pave",
@@ -39,6 +30,15 @@ const quizItems = [
         description: "Det kan måske være svært at se, men billedet er ægte. Men nyere AI-modeller kan lave billeder, der ser lige så virkelige ud. Derfor er det vigtigt at huske på, at man altid skal være vågen - især når det er billeder og videoer, der handler om nyheder, krige og politik, hvor de kan påvirke, hvad vi tror er sandt."
     }
 ];
+
+function preloadImages() {
+    quizItems.forEach(item => {
+        const img = new Image();
+        img.src = item.image;
+    });
+}
+
+preloadImages();
 
 let currentIndex = 0;
 let score = 0;
