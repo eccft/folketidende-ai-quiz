@@ -9,7 +9,7 @@ const quizItems = [
         alt: "terkel",
         image: "https://raw.githubusercontent.com/eccft/folketidende-ai-quiz/main/Billleder%20og%20grafik/Quiz-billeder/terkel-jakobsen_palle-nevad-frandsen.jpg",
         answer: "real",
-        description: "Lyset og ansigtstrækkene ser naturlige ud. Et særligt træk ved AI er, at især træer i baggrunden ofte bliver \"blandet\" lidt sammen, så det står som en sløret masse. Refleksionerne og tingene i drivhuset ser naturlige ud."
+        description: "Lyset og ansigtet ser naturlige ud. Et særligt træk ved AI er, at især træer i baggrunden ofte bliver \"blandet\" lidt sammen, så det står som en sløret masse. Refleksionerne og tingene i drivhuset ser naturlige ud."
     },
     {
         alt: "trump",
@@ -31,24 +31,17 @@ const quizItems = [
     }
 ];
 
-function preloadImages() {
-    quizItems.forEach(item => {
-        const img = new Image();
-        img.src = item.image;
-    });
-}
-
-preloadImages();
-
 let currentIndex = 0;
 let score = 0;
 let hasAnswered = false;
 
 const quizStatus = document.getElementById("quiz-status");
 const quizImage = document.getElementById("quiz-image");
+const restartButton = document.getElementById("restart-button");
 const fakeButton = document.getElementById("fake-button");
 const realButton = document.getElementById("real-button");
 const nextButton = document.getElementById("next-button");
+const nextFromInfoButton = document.getElementById("next-from-info-button");
 const feedback = document.getElementById("feedback");
 
 const imageDescription = document.getElementById("image-description");
@@ -57,7 +50,6 @@ const descriptionResult = document.getElementById("description-result");
 
 const mobileHint = document.getElementById("mobile-hint");
 const quizArea = document.getElementById("quiz-area");
-const backToImageButton = document.getElementById("back-to-image-button");
 
 function isMobileView() {
     return window.innerWidth <= 900;
@@ -78,12 +70,21 @@ function applyResultStyles(isCorrect) {
     descriptionBox.classList.add(className);
 }
 
+function preloadImages() {
+    quizItems.forEach(item => {
+        const img = new Image();
+        img.src = item.image;
+    });
+}
+
 function loadQuestion() {
     const currentItem = quizItems[currentIndex];
 
     quizStatus.textContent = `Billede ${currentIndex + 1} af ${quizItems.length}`;
     quizImage.src = currentItem.image;
     quizImage.alt = currentItem.alt;
+    quizImage.style.display = "block";
+    restartButton.style.display = "none";
 
     feedback.textContent = "";
     imageDescription.textContent = "";
@@ -98,8 +99,17 @@ function loadQuestion() {
 
     fakeButton.disabled = false;
     realButton.disabled = false;
+    fakeButton.style.display = "block";
+    realButton.style.display = "block";
 
     nextButton.style.display = "none";
+
+    if (isMobileView()) {
+        nextFromInfoButton.textContent =
+            currentIndex === quizItems.length - 1 ? "Se resultat ↑" : "Næste billede ↑";
+    } else {
+        nextFromInfoButton.textContent = "Næste billede ↑";
+    }
 }
 
 function handleAnswer(userAnswer) {
@@ -123,7 +133,6 @@ function handleAnswer(userAnswer) {
 
     descriptionResult.textContent = feedback.textContent;
     imageDescription.textContent = currentItem.description;
-
     descriptionBox.style.display = "block";
 
     fakeButton.disabled = true;
@@ -135,10 +144,13 @@ function handleAnswer(userAnswer) {
     if (isMobileView()) {
         mobileHint.style.display = "block";
 
+        nextFromInfoButton.textContent =
+            currentIndex === quizItems.length - 1 ? "Se resultat ↑" : "Næste billede ↑";
+
         setTimeout(() => {
             descriptionBox.scrollIntoView({
                 behavior: "smooth",
-                block: "start"
+                block: "center"
             });
         }, 150);
     }
@@ -170,19 +182,24 @@ function showFinalResult() {
 
     quizStatus.textContent = `Færdig – ${score} ud af ${quizItems.length} rigtige`;
 
+    quizImage.style.display = "none";
     quizImage.removeAttribute("src");
     quizImage.alt = "Quiz afsluttet";
+    restartButton.style.display = "inline-block";
 
-    feedback.textContent = "Quizzen er slut.";
+    feedback.innerHTML = `
+        <div>Quizzen er slut.</div>
+        <div>Du fik ${score} ud af ${quizItems.length} rigtige.</div>
+    `;
 
     descriptionResult.textContent = `Du fik ${score} ud af ${quizItems.length} rigtige.`;
-    imageDescription.textContent = "Genindlæs siden for at prøve igen.";
-
+    imageDescription.textContent = "Tryk på “Spil igen” for at starte forfra.";
     descriptionBox.style.display = "block";
 
     fakeButton.style.display = "none";
     realButton.style.display = "none";
     nextButton.style.display = "none";
+    nextFromInfoButton.style.display = "none";
     mobileHint.style.display = "none";
 
     if (isMobileView()) {
@@ -195,16 +212,34 @@ function showFinalResult() {
     }
 }
 
-function scrollBackToImage() {
-    quizArea.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
+function restartGame() {
+    currentIndex = 0;
+    score = 0;
+    hasAnswered = false;
+
+    fakeButton.style.display = "block";
+    realButton.style.display = "block";
+    nextButton.style.display = "none";
+    nextFromInfoButton.style.display = isMobileView() ? "block" : "none";
+    restartButton.style.display = "none";
+
+    loadQuestion();
+
+    if (isMobileView()) {
+        setTimeout(() => {
+            quizArea.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }, 100);
+    }
 }
 
 fakeButton.addEventListener("click", () => handleAnswer("fake"));
 realButton.addEventListener("click", () => handleAnswer("real"));
 nextButton.addEventListener("click", goToNextStep);
-backToImageButton.addEventListener("click", scrollBackToImage);
+nextFromInfoButton.addEventListener("click", goToNextStep);
+restartButton.addEventListener("click", restartGame);
 
+preloadImages();
 loadQuestion();
