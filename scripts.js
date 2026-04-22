@@ -1,3 +1,12 @@
+function preloadImages() {
+    quizItems.forEach(item => {
+        const img = new Image();
+        img.src = item.image;
+    });
+}
+
+preloadImages();
+
 const quizItems = [
     {
         alt: "pave",
